@@ -8,6 +8,7 @@ puts "Определение типа треугольника по значен
 
 puts "Введите значениe стороны a:"
 a = gets.chomp.to_f
+puts a
 
 puts "Введите значение стороны b:"
 b = gets.chomp.to_f
@@ -15,8 +16,8 @@ b = gets.chomp.to_f
 puts "Введите значение стороны c:"
 c = gets.chomp.to_f
 
-
-if a == b && a == c && b == c
+if a && b && c
+  if a == b && a == c && b == c
 		puts "Равносторонний"
 
 	elsif a == b || a == c || b == c
@@ -26,3 +27,4 @@ if a == b && a == c && b == c
 		puts "Никакой"	
 	
 	end 
+end

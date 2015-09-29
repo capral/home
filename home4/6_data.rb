@@ -20,8 +20,10 @@ index = 0 #задаём начальное значение index для цик�
 while index < m do #Условие: цикл while будет выполняться до тех пор, пока index меньше 'm'
   if y % 4 != 0 
   else 
-    arr.delete_at(2)
-    arr.insert(2, 29)
+
+    arr[2] = 29
+    #arr.delete_at(2)
+    #arr.insert(2, 29)
 end
   sum = sum + arr[index] 
   index = index + 1
