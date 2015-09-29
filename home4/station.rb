@@ -22,7 +22,7 @@ attr_reader :number, :type, :vagons, :speed
   end
 
   def speed_down
-    @speed -= 10 if @speed >= 10 # тормозить (уменьшать значение скорости на 10, но скорость не ниже 0)
+    @speed -= 10 if @speed >= 10 # тормозить (уменьшать значение скорости на 10, скорость не ниже 0)
   end
 end
 
