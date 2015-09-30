@@ -1,6 +1,6 @@
-class Train # Класс Train (поезд):
+class Train
 
-attr_reader :number, :type, :vagons, :speed 
+attr_reader :number, :type, :vagons, :speed
 
   def initialize (number, type, vagons)
     @number = number # Имеет номер (указывается при создании и не меняется в течение жизни объекта) 
@@ -8,7 +8,7 @@ attr_reader :number, :type, :vagons, :speed
     @vagons = vagons # Имеет кол-во вагонов, которое также указывается при создании поезда
     @speed = 0
   end
- 
+
   def hook_one #прицеплять по одному вагону, если speed == 0 
   	@vagons += 1 if vagons < 101 && speed == 0
   end
@@ -26,20 +26,23 @@ attr_reader :number, :type, :vagons, :speed
   end
 end
 
-class Station #Класс Станция
+class Station
 
-attr_reader :name, :trains
+attr_reader :name, :list
 
-def initialize (name)
-	@name = name #Имеет название, которое указывается при ее создании
-	@trains = trains #Может выводить на экран список всех поездов на станции
+  def initialize (name)
+  @name = name #Имеет название, которое указывается при ее создании
+  @list = [] 
+  end
+
+  def add_list (train)  #Может принимать поезда (передается объект поезда и сохраняется в списке станции)
+  @list << train
+  end
+
+  def delete_list (train) #Может отправлять поезда (при этом, поезд удаляется из списка поездов на станции).
+  @list.delete(train)
+  end
 end
-
-def train_in  #Может принимать поезда (передается объект поезда и сохраняется во списке станции)
-end
-
-def train_out #Может отправлять поезда (при этом, поезд удаляется из списка поездов на станции).
-end	
 
 
 
