@@ -1,6 +1,6 @@
 
 class Train
-  attr_reader :number, :type, :vagons, :speed, :train_route #, :current_stop
+  attr_reader :number, :type, :vagons, :speed, :train_route 
 
   def initialize (number, type, vagons)
     @number = number 
@@ -8,8 +8,6 @@ class Train
     @vagons = vagons 
     @speed = 0
     @train_route = nil
-    @countdown = 0
-    @train_route = []
   end
 
   def hook_one 
@@ -43,8 +41,7 @@ class Train
   end
 
   def forward_move 
-    @current_stop = @train_route.route_list[index].name if index < (@train_route.route_list.size - 1)
-    
+    @current_stop = @train_route.route_list[index].name if index < (@train_route.route_list.size - 1)  
   end
 
   def countdown
@@ -53,7 +50,6 @@ class Train
 
   def reverse_move 
     @current_stop = @train_route.route_list[countdown].name if index > 0
-    
   end
 end
 
@@ -74,9 +70,9 @@ attr_reader :name, :list
   end
 
   def type_list 
-    type_list = Hash.new(0)
+     type_list = Hash.new(0)
     @list.map { |train| type_list[train.type] += 1 }
-    type_list
+     type_list
   end
 end
 
@@ -96,6 +92,6 @@ class Route
   end
 
   def route_list
-  @route_list
+    @route_list
   end
 end
