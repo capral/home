@@ -11,15 +11,15 @@ class Train
   end
 
   def hook_one 
-  	@vagons += 1 if vagons < 101 && speed == 0
+    @vagons += 1 if vagons < 101 && speed == 0
   end
   
   def unhook_one 
-  	@vagons -= 1 if vagons > 1 && speed == 0
+    @vagons -= 1 if vagons > 1 && speed == 0
   end
 
   def speed_up
-  	@speed += 10 if speed < 110	
+    @speed += 10 if speed < 110 
   end
 
   def speed_down
@@ -36,20 +36,28 @@ class Train
     @current_stop 
   end
 
-  def index
+  def increment_index 
     @index += 1 
   end
 
   def forward_move 
-    @current_stop = @train_route.route_list[index].name if index < (@train_route.route_list.size - 1)  
+    @current_stop = @train_route.route_list[increment_index].name if @index <= (@train_route.route_list.size - 1)  
   end
 
-  def countdown
-    @index -= 1 
+  def decrement_index
+    @index -= 1 if @index > 0
   end
 
   def reverse_move 
-    @current_stop = @train_route.route_list[countdown].name if index > 0
+    @current_stop = @train_route.route_list[decrement_index].name if @index >= 0
+  end
+
+  def show_next
+    @train_route.route_list[@index + 1].name  
+  end
+
+  def show_previous
+    @train_route.route_list[@index - 1].name  
   end
 end
 
