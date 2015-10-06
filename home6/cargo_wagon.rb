@@ -1,4 +1,5 @@
 class CargoWagon
+  include Manufacturer
    @@max_load = 6800
 
   def initialize

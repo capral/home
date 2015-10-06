@@ -1,5 +1,5 @@
 class PassengerWagon
-   
+  include Manufacturer
   def initialize
     @all_seats = 36
     @occupied_seats = 0

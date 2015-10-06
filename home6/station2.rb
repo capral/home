@@ -1,7 +1,13 @@
 class Station
-attr_reader :name, :list
+  attr_reader :name, :list
+    @@all_stations = []
+
+  def self.all_stations
+    @@all_stations
+  end
 
   def initialize (name)
+    @@all_stations << name
     @name = name 
     @list = [] 
   end

@@ -1,7 +1,18 @@
+require_relative 'manufacturer'
 class Train
+  include Manufacturer
   attr_reader :number, :type, :vagons, :speed, :train_route 
+    @@trains = []
+  def self.find(number)
+    @@trains[number]
+  end
+
+# В классе Train создать метод класса find, который принимает номер поезда
+# и возвращает объект поезда по номеру или nil, если поезд с таким номером не найден.
+
 
   def initialize (number, type, vagons)
+    @@trains[number] = self
     @number = number 
     @type = type 
     @vagons = vagons 
@@ -35,16 +46,8 @@ class Train
     @current_stop 
   end
 
-  def increment_index 
-    @index += 1 
-  end
-
   def forward_move 
     @current_stop = @train_route.route_list[increment_index].name if @index <= (@train_route.route_list.size - 1)  
-  end
-
-  def decrement_index
-    @index -= 1 if @index > 0
   end
 
   def reverse_move 
@@ -58,4 +61,16 @@ class Train
   def show_previous
     @train_route.route_list[@index - 1].name  
   end
+
+  protected
+
+  def increment_index 
+    @index += 1 
+  end
+  
+  def decrement_index
+    @index -= 1 if @index > 0
+  end
+
 end
+
