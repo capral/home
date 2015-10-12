@@ -1,4 +1,5 @@
-class CargoWagon
+require_relative 'manufacturer'
+class CargoWagon < Train
   include Manufacturer
    @@max_load = 6800
 

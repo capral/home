@@ -1,7 +1,7 @@
 class CargoTrain < Train
   attr_reader :wagons
 
-  def initialize (number, type)
+  def initialize (number)
     @number = number 
     @type = type 
     @wagons = [] 
@@ -14,8 +14,8 @@ class CargoTrain < Train
     @wagons << cargowagon
   end
   
-  def unhook_one(cargowagon) 
+  def unhook_one
     return nil if @speed > 0
-    @wagons.delete(cargowagon)
+    @wagons.pop
   end
 end

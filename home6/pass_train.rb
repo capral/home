@@ -1,10 +1,10 @@
 class PassengerTrain < Train
   attr_reader :wagons
 
-  def initialize (number, type)
-    @number = number 
-    @type = type 
+  def initialize (number)
+    @number = number  
     @wagons = [] 
+    # @wagon = wagon = nil
     @speed = 0
     @train_route = nil
  end
@@ -18,4 +18,10 @@ class PassengerTrain < Train
     return nil if @speed > 0
     @wagons.delete(passengerwagon)
   end
+
+ #Метод который добавляет пассажиров в поезд
+
+# def take_a_train
+    
+# end
 end

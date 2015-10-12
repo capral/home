@@ -2,7 +2,10 @@ require_relative 'manufacturer'
 class Train
   include Manufacturer
   attr_reader :number, :type, :vagons, :speed, :train_route 
-    @@trains = []
+
+  # NUMBER_FORMAT = /\A[\D|\d]{3}\-[\D|\d]{2}\z/
+
+    @@trains = {}
   def self.find(number)
     @@trains[number]
   end
@@ -12,13 +15,16 @@ class Train
 
 
   def initialize (number, type, vagons)
-    @@trains[number] = self
-    @number = number 
+    @number = number
     @type = type 
     @vagons = vagons 
+    validate! 
+    @@trains[number] = self 
     @speed = 0
     @train_route = nil
   end
+
+  
 
   def hook_one 
     @vagons += 1 if vagons < 101 && speed == 0
@@ -71,6 +77,22 @@ class Train
   def decrement_index
     @index -= 1 if @index > 0
   end
+  
+  def valid?
+    validate!
+    true
+    rescue 
+    false
+  end
 
+  protected
+
+  def validate!
+    raise ArgumentError, " !!! Неверный ввод номера поезда в формате XXX-XX !!! " if number !~ /\A[\D|\d]{3}\-[\D|\d]{2}\z/
+  end
 end
-
+# Релизовать проверку на формат номера поезда. 
+# Допустимый формат: три буквы или цифры в любом порядке, 
+# необязательный дефис (может быть, а может нет) и еще 2 буквы или цифры после дефиса.
+# Регистр символов неважен.
+ #\A[\D|\d]{3}\-[\D|\d]{2}\z

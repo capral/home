@@ -1,8 +1,10 @@
+require_relative 'manufacturer'
 class PassengerWagon
   include Manufacturer
-  def initialize
+  def initialize#(num_wagon)
     @all_seats = 36
     @occupied_seats = 0
+    # @num_wagon = num_wagon = nil
   end
 
   def take_seat
@@ -20,4 +22,11 @@ class PassengerWagon
   def occupied_seats
     @occupied_seats = 36 - @all_seats
   end
+
+  # def num_wagon
+  # 	@num_wagon
+  # end
+
+  
+
 end
