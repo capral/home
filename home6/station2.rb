@@ -13,6 +13,10 @@ class Station
     @@all_stations << self
   end
 
+  def anything_station(&block)
+    @list.each{ |train| block.call(train) }
+  end
+  
   def add_list (train) 
     @list << train
   end
@@ -27,20 +31,50 @@ class Station
      type_list
   end
 
-  def valid?
+    def valid?
     validate!
     true
   rescue 
     false
-    
   end
 
-  protected
+  # protected
 
   def validate!
     raise ArgumentError, "!!! Вы не ввели название станции !!!" if name.empty?
     raise ArgumentError, "!!! Название станции не может состоять из одной буквы !!!" if name.size < 2
-    # raise ArgumentError, "!!! Думай что пишешь !!!" 
-    # raise ArgumentError, "Неверный ввод!" if name !~ \A\W*\z
   end
+  
+  def start
+    attempt = 1
+begin
+  puts "Введите название станции:"
+  name = gets.chomp
+  station1 = Station.new(name)
+  puts "Вы создали станцию #{station1.name}"
+  puts "Список всех станций класса Station: #{Station.all_stations}"
+rescue ArgumentError
+  attempt += 1
+  puts "Попробуйте ещё раз (попытка #{attempt}) :"
+  puts "Введите два и более символов" if attempt == 3
+  puts "Не балуйся!" if attempt > 3
+retry 
 end
+
+attempt = 1
+begin
+  puts "Введите название станции:"
+  name = gets.chomp
+  station2 = Station.new(name)
+  puts "Вы создали станцию #{station2.name}"
+  puts "Список всех станций класса Station: #{Station.all_stations}"
+rescue ArgumentError
+  attempt += 1
+  puts "Попробуйте ещё раз (попытка #{attempt}) :"
+  puts "Введите два и более символов" if attempt == 3
+  puts "Не балуйся!" if attempt > 3
+retry 
+end
+end
+end
+

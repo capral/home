@@ -18,4 +18,10 @@ class CargoTrain < Train
     return nil if @speed > 0
     @wagons.pop
   end
-end
+
+  def anything_cargo(&block)
+    @wagons.each {|cargowagon| block.call(cargowagon)} 
+  end
+
+end 
+

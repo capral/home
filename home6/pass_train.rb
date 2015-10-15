@@ -4,7 +4,6 @@ class PassengerTrain < Train
   def initialize (number)
     @number = number  
     @wagons = [] 
-    # @wagon = wagon = nil
     @speed = 0
     @train_route = nil
  end
@@ -14,14 +13,12 @@ class PassengerTrain < Train
     @wagons << passengerwagon
   end
   
-  def unhook_one(passengerwagon) 
+  def unhook_one 
     return nil if @speed > 0
-    @wagons.delete(passengerwagon)
+    @wagons.pop
   end
 
- #Метод который добавляет пассажиров в поезд
-
-# def take_a_train
-    
-# end
+   def anything(&block)
+    @wagons.each {|passengerwagon| block.call(passengerwagon)} 
+  end
 end
