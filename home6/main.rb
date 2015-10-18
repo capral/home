@@ -12,7 +12,7 @@ begin
    puts "Добро пожаловать!"
    station1 = nil
   with_retry do
-   puts "Введите название станции:"
+   puts "Введите название первой станции маршрута:"
    name = gets.chomp
    station1 = Station.new(name)
    puts "Вы создали станцию #{station1.name}"
@@ -21,10 +21,9 @@ begin
 end
 
 begin
-   puts "Добро пожаловать!"
    station2 = nil
   with_retry do
-   puts "Введите название станции:"
+   puts "Введите название конечной станции маршрута:"
    name = gets.chomp
    station2 = Station.new(name)
    puts "Вы создали станцию #{station2.name}"
@@ -246,7 +245,7 @@ loop do
         train.hook_one(cargowagon)
         puts "#{train.wagons}"
       end
-        puts "Вагоны пирцеплены"
+        puts "Вагоны прицеплены"
               
     when 11
       loop do
