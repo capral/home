@@ -18,7 +18,7 @@ class PassengerTrain < Train
     @wagons.pop
   end
 
-   def anything(&block)
+   def anything_train(&block)
     @wagons.each {|passengerwagon| block.call(passengerwagon)} 
   end
 end

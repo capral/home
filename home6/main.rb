@@ -6,68 +6,55 @@ require_relative 'cargo_train'
 require_relative 'pass_train'
 require_relative 'cargo_wagon'
 require_relative 'pass_wagon'
+require_relative 'main_bg'
 
-
-  attempt = 1
 begin
-  puts "Введите название станции:"
-  name = gets.chomp
-  station1 = Station.new(name)
-  puts "Вы создали станцию #{station1.name}"
-  puts "Список всех станций класса Station: #{Station.all_stations}"
-rescue ArgumentError
-  attempt += 1
-  puts "Попробуйте ещё раз (попытка #{attempt}) :"
-  puts "Введите два и более символов" if attempt == 3
-  puts "Не балуйся!" if attempt > 3
-retry 
+   puts "Добро пожаловать!"
+   station1 = nil
+  with_retry do
+   puts "Введите название станции:"
+   name = gets.chomp
+   station1 = Station.new(name)
+   puts "Вы создали станцию #{station1.name}"
+   puts "Список всех станций класса Station: #{Station.all_stations}"
+ end
 end
 
-  attempt = 1
 begin
-  puts "Введите название станции:"
-  name = gets.chomp
-  station2 = Station.new(name)
-  puts "Вы создали станцию #{station2.name}"
-  puts "Список всех станций класса Station: #{Station.all_stations}"
-rescue ArgumentError
-  attempt += 1
-  puts "Попробуйте ещё раз (попытка #{attempt}) :"
-  puts "Введите два и более символов" if attempt == 3
-  puts "Не балуйся!" if attempt > 3
-retry 
+   puts "Добро пожаловать!"
+   station2 = nil
+  with_retry do
+   puts "Введите название станции:"
+   name = gets.chomp
+   station2 = Station.new(name)
+   puts "Вы создали станцию #{station2.name}"
+   puts "Список всех станций класса Station: #{Station.all_stations}"
+ end
 end
 
   puts "Введите название маршрута:"
   route66 = gets.strip
   route = Route.new(station1,station2)
   puts "Маршрут #{route66} #{route.route_list} создан. "
-
   puts "Теперь создадим ещё несколько станций для маршрута #{route66}"
-loop do
+
+begin
+    with_retry do
+  loop do
     puts "Введите название станции:"
-    attempt = 1
-  begin
     name = gets.chomp
-  break if name == "next"
+    break if name == "next"
     station = Station.new(name)
     puts "Вы создали станцию #{station.name}"
-    puts "Список всех станций класса Station: #{Station.all_stations}"
+    puts "Список всех станций: #{Station.all_stations}"
     route.add_station(station)
     puts "Станция #{station.name} добавлена в маршрут #{route66}"
     puts "#{route.route_list}"
-    puts "По завершению наберите: 'next'"
-  rescue ArgumentError
-    attempt += 1
-    puts "Попробуйте ещё раз (попытка #{attempt}) :"
-    puts "Введите два и более символов" if attempt == 3
-    puts "Не балуйся!" if attempt > 3
-  retry 
- end
+   end
+  end
 end
 
   puts "Теперь создадим пассажирский или товарный поезд:"
-
     attempt = 1
 begin
     puts "Введите произвольный номер поезда в формате XXX-XX:"
@@ -78,6 +65,7 @@ begin
     puts "Попробуйте ещё раз (попытка: #{attempt}) :"
   retry 
 end
+
 
    attempt = 1
 begin
@@ -128,56 +116,36 @@ loop do
    case w
 
     when 0
-      puts "  _______________"
-      puts "  МЕНЮ УПРАВЛЕНИЯ:"
-      puts "  1. Прибытие поезда на следующую станцию маршрута"
-      puts "  2. Возврат на предыдущую станцию маршрута"
-      puts "  3. Ускорение на 10 км/ч"
-      puts "  4. Замедление на 10 км/ч"
-      puts "  __________________"
-      puts "  ПАССАЖИРСКИЙ ПОЕЗД:"
-      puts "  5. Посадка в пассажирские вагононы"
-      puts "  6. Высадка из пассажирских вагонов"
-      puts "  7. Прицепить пассажирские вагоны"
-      puts "  ______________"
-      puts "  ТОВАРНЫЙ ПОЕЗД:"
-      puts "  8.Загрузка товарных вагонов"
-      puts "  9.Разгрузка товарных вагонов"
-      puts "  10.Прицепить товарные вагоны"
-      puts "                              "
-      puts "  11.Расцепить вагоны "
-      puts "  12.Показать состав "
-      puts "  13.Информация о производителе"
-      
+        main_list  
+
     when 1
-      
       begin
-      train.forward_move
-      puts "Следующая станция: #{train.show_next}"
-      puts "Поезд на станции: #{train.current_stop}"
-      puts "Предыдущая станция: #{train.show_previous}"
-      raise NoMethodError
-      rescue NoMethodError
+        train.forward_move
+        puts "Следующая станция: #{train.show_next}"
+        puts "Поезд на станции: #{train.current_stop}"
+        puts "Предыдущая станция: #{train.show_previous}"
+        rescue StandardError
+        puts "Поезд на ходится на конечной станции:"
+        puts "#{station2.name}"
       end
 
     when 2
       begin
-      train.reverse_move
-      puts "Следующая станция: #{train.show_next}"
-      puts "Поезд на станции: #{train.current_stop}"
-      puts "Предыдущая станция: #{train.show_previous}"
-      raise TypeError
-      raise NoMethodError
-      rescue TypeError
-      rescue NoMethodError
+        train.reverse_move
+        puts "Следующая станция: #{train.show_next}"
+        puts "Поезд на станции: #{train.current_stop}"
+        puts "Предыдущая станция: #{train.show_previous}"
+        rescue StandardError
+        puts "Поезд на ходится первой станции:"
+        puts "#{station1.name}"
       end
 
     when 3
-      train.speed_up
-      puts "Текущая скорость #{train.speed} км/ч"
+        train.speed_up
+        puts "Текущая скорость #{train.speed} км/ч"
     when 4 
-      train.speed_down
-      puts "Текущая скорость #{train.speed} км/ч"
+        train.speed_down
+        puts "Текущая скорость #{train.speed} км/ч"
 
     when 5
       loop do
@@ -192,8 +160,8 @@ loop do
         puts "Осталось #{train.wagons[index].free_seats} мест"
         puts "Занято #{train.wagons[index].occupied_seats} мест"
         puts "Для завершения посадки: 'next'"
-        raise NoMethodError
         rescue NoMethodError
+        puts "Товарный вагон не подходит для посадки пассажиров! Наберите: 'next'"
       end
     end
 
@@ -210,8 +178,8 @@ loop do
         puts "Осталось #{train.wagons[index].free_seats} мест"
         puts "Занято #{train.wagons[index].occupied_seats} мест"
         puts "Для завершения высадки: 'next'"
-        raise NoMethodError
         rescue NoMethodError
+        puts "В товарном вагоне нет пассажиров! Наберите: 'next'"
       end    
     end
 
@@ -225,8 +193,7 @@ loop do
         puts "#{train.wagons}"
       end
         puts "Вагоны прицеплены"
-       
-                
+                       
     when 8
       loop do
         begin
@@ -242,8 +209,8 @@ loop do
         puts "Осталось #{train.wagons[index].empty_part} свободного места"
         puts "Загруженно #{train.wagons[index].loaded_part} кг груза"
         puts "Для завершения загрузки: 'next'"
-        raise NoMethodError
-        rescue NoMethodError
+        rescue NoMethodError 
+        puts "Невозможно загрузить пассажирский вагон! Наберите: 'next'"
        end
       end
         puts "Загрузка завершена"
@@ -264,8 +231,8 @@ loop do
         puts "Вагон загружен на #{train.wagons[index].loaded_part} кг"
         puts "В вагоне #{train.wagons[index].empty_part} свободного места"
         puts "Для завершения разгрузки: 'next'"
-        raise NoMethodError
         rescue NoMethodError
+        puts "Невозможно разгрузить пассажирский вагон! Наберите: 'next'"
        end
       end
         puts "Разгрузка завершена"
@@ -297,12 +264,6 @@ loop do
     when 13
         puts "#{train.manufacturer}" 
 
-    else puts "Неверный ввод"
+   else puts "Неверный ввод"
   end
 end
-
-    
-
-
-
-
