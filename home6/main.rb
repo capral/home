@@ -124,7 +124,7 @@ loop do
         puts "Поезд на станции: #{train.current_stop}"
         puts "Предыдущая станция: #{train.show_previous}"
         rescue StandardError
-        puts "Поезд на ходится на конечной станции:"
+        puts "Поезд находится на конечной станции:"
         puts "#{station2.name}"
       end
 
@@ -135,7 +135,7 @@ loop do
         puts "Поезд на станции: #{train.current_stop}"
         puts "Предыдущая станция: #{train.show_previous}"
         rescue StandardError
-        puts "Поезд на ходится первой станции:"
+        puts "Поезд находится первой станции:"
         puts "#{station1.name}"
       end
 
